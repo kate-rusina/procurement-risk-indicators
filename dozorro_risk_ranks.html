@@ -134,10 +134,10 @@
   // defCount/defValue — 4 великі оборонні закупівлі продуктів харчування для ЗСУ
   // (різниця між таблицею «з оборонними» і таблицею «без 4х оборонних закупівель»).
   var DATA = [
-    { name:'1 ранг', color:'#18063a', count:81,   value:672284146.70,   defCount:0, defValue:0 },
-    { name:'2 ранг', color:'#18063a', count:215,  value:3196407092.96,  defCount:0, defValue:0 },
-    { name:'3 ранг', color:'#18063a', count:1252, value:14550848877.54, defCount:0, defValue:0 },
-    { name:'4 ранг', color:'#18063a', count:4275, value:62952713268.11, defCount:4275-4271, defValue:62952713268.11-35667044277.11 }
+    { name:'1 ранг', desc:'4+ ризик-індикаторів', color:'#18063a', count:81,   value:672284146.70,   defCount:0, defValue:0 },
+    { name:'2 ранг', desc:'3 ризик-індикатори', color:'#18063a', count:215,  value:3196407092.96,  defCount:0, defValue:0 },
+    { name:'3 ранг', desc:'2 ризик-індикатори', color:'#18063a', count:1252, value:14550848877.54, defCount:0, defValue:0 },
+    { name:'4 ранг', desc:'1 ризик-індикатор', color:'#18063a', count:4275, value:62952713268.11, defCount:4275-4271, defValue:62952713268.11-35667044277.11 }
   ];
   var DEF_COLOR = '#fcad10';
   var HATCH = DEF_COLOR;
@@ -168,7 +168,7 @@
   function nb(s){ return s.replace(/(^|[\s(«])([уУвВзЗіІйЙаАоО]|та|до|на|не|по|за|що|від|без|під|про|при|або|для)\s/g, function(m,a,b){ return a + b + ' '; }); }
 
   document.getElementById('subtitle').innerHTML = nb('Унікальні тендери, у яких спрацювали ризик-індикатори: <b>' + num(T.count) + ' ' + tend(T.count) +
-    '</b> з очікуваною вартістю <b>' + money(T.value) + '</b>. 1 ранг — найбільша кількість ризик-індикаторів');
+    '</b> з очікуваною вартістю <b>' + money(T.value) + '</b>');
 
   document.querySelectorAll('[data-nb]').forEach(function(el){
     el.childNodes.forEach(function(n){ if(n.nodeType===3) n.nodeValue = nb(n.nodeValue); });
@@ -237,7 +237,7 @@
         ' (' + pc(v2, T.value2) + ' від ' + money(T.value2) + ')</div>';
     }
     tip.innerHTML = '<div class="tl">Ранг ризику</div>' +
-      '<div class="tf"><i style="background:' + d.color + '"></i>' + d.name + '</div>' + nb(main) + nb(extra) + '<span class="arrow"></span>';
+      '<div class="tf"><i style="background:' + d.color + '"></i><span>' + d.name + ' — ' + d.desc + '</span></div>' + nb(main) + nb(extra) + '<span class="arrow"></span>';
     tip.classList.add('visible');
     place(i);
   }
