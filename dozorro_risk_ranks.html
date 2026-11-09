@@ -78,6 +78,7 @@
   .footer{margin-top:clamp(16px,2cqw,32px);}
   .source{font-size:clamp(12px,0.92cqw,15px);color:var(--gray);line-height:1.4;}
   .source p{margin:0;}
+  .source p+p{margin-top:0.35em;}
 
   /* ≤ 900 px: логотипи окремим рядком над заголовком, праворуч */
   @container stage (max-width:900px){
@@ -144,6 +145,7 @@
     <div class="footer">
       <div class="source">
         <p data-nb>Дані про спрацювання ризик-індикаторів у 2025 році, які надало ДП «Прозорро»</p>
+        <p data-nb>Ранг ураховує всі ризик-індикатори, що спрацювали в закупівлі, зокрема наприкінці 2024 і на початку 2026 року</p>
       </div>
     </div>
   </div>
@@ -154,14 +156,14 @@
 (function(){
   // Кольори: усі ранги темно-фіолетові; оборонні закупівлі — помаранчевий.
   // Ранг 1 — тендери з найбільшою кількістю ризик-індикаторів. Колір закріплений за рангом.
-  // count/value — усі тендери з РІ (з оборонними закупівлями);
-  // defCount/defValue — 4 великі оборонні закупівлі продуктів харчування для ЗСУ
-  // (різниця між таблицею «з оборонними» і таблицею «без 4х оборонних закупівель»).
+  // count/value — усі тендери з РІ (з оборонними закупівлями), дані від 09.11.2026;
+  // defCount/defValue — 4 великі оборонні закупівлі продуктів харчування для ЗСУ у 4 рангу
+  // (27 285 668 991,00 грн — різниця між таблицями «з оборонними» і «без 4х оборонних закупівель»).
   var DATA = [
-    { name:'1 ранг', desc:'4+ ризик-індикаторів', color:'#18063a', count:81,   value:672284146.70,   defCount:0, defValue:0 },
-    { name:'2 ранг', desc:'3 ризик-індикатори', color:'#18063a', count:215,  value:3196407092.96,  defCount:0, defValue:0 },
-    { name:'3 ранг', desc:'2 ризик-індикатори', color:'#18063a', count:1252, value:14550848877.54, defCount:0, defValue:0 },
-    { name:'4 ранг', desc:'1 ризик-індикатор', color:'#18063a', count:4275, value:62952713268.11, defCount:4275-4271, defValue:62952713268.11-35667044277.11 }
+    { name:'1 ранг', desc:'4+ ризик-індикаторів', color:'#18063a', count:84,   value:675908886.70,   defCount:0, defValue:0 },
+    { name:'2 ранг', desc:'3 ризик-індикатори', color:'#18063a', count:225,  value:4094086641.76,  defCount:0, defValue:0 },
+    { name:'3 ранг', desc:'2 ризик-індикатори', color:'#18063a', count:1255, value:14494351035.73, defCount:0, defValue:0 },
+    { name:'4 ранг', desc:'1 ризик-індикатор', color:'#18063a', count:4259, value:62107906821.62, defCount:4, defValue:27285668991.00 }
   ];
   var DEF_COLOR = '#fcad10';
   var HATCH = DEF_COLOR;
@@ -170,7 +172,7 @@
   function sum(k){ return DATA.reduce(function(s,d){ return s + d[k]; }, 0); }
   var T = { count: sum('count'), value: sum('value'), defCount: sum('defCount'), defValue: sum('defValue') };
   T.count2 = T.count - T.defCount; T.value2 = T.value - T.defValue;
-  // Контроль: 5 823 тендери / 81 372 253 385,31 грн; без оборонних 5 819 / 54 086 584 394,31 грн
+  // Контроль: 5 823 тендери / 81 372 253 385,81 грн
 
   var nf = new Intl.NumberFormat('uk-UA');
   var pf = new Intl.NumberFormat('uk-UA',{minimumFractionDigits:2,maximumFractionDigits:2});

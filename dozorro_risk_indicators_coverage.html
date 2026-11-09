@@ -54,7 +54,11 @@
   .rows{display:flex;flex-direction:column;gap:clamp(6px,0.8cqw,14px);}
   .rows.few{gap:clamp(16px,2.4cqw,40px);padding:clamp(8px,1.6cqw,28px) 0;}
   .row{display:grid;grid-template-columns:minmax(0,38%) minmax(0,1fr);align-items:center;column-gap:clamp(12px,1.4cqw,24px);cursor:pointer;padding:3px 8px;margin:0 -8px;border-radius:6px;transition:background .15s ease;outline:none;}
-  .rows.few .row{grid-template-columns:minmax(0,24%) minmax(0,1fr);}
+  .rows.few .row,.rows.mid .row{grid-template-columns:minmax(0,24%) minmax(0,1fr);}
+  .ghead{display:flex;align-items:center;gap:clamp(10px,1cqw,16px);font-size:clamp(14px,1.05cqw,18px);font-weight:700;color:var(--purple);margin-top:clamp(12px,1.4cqw,24px);}
+  .ghead::after{content:"";flex:1;height:1px;background:#e4def0;}
+  .ghead:first-child{margin-top:0;}
+  .rows.mid .label{font-weight:500;font-variant-numeric:tabular-nums;}
   .row:hover,.row.active{background:#faf7fc;}
   .row:focus-visible,.pill:focus-visible{outline:2px solid var(--violet);outline-offset:2px;}
   .label{font-size:clamp(14px,1.02cqw,17px);line-height:1.25;color:var(--purple);}
@@ -92,7 +96,7 @@
   /* Проміжні ширини: більше місця підписам */
   @container stage (max-width:860px){
     .row{grid-template-columns:minmax(0,45%) minmax(0,1fr);}
-    .rows.few .row{grid-template-columns:minmax(0,30%) minmax(0,1fr);}
+    .rows.few .row,.rows.mid .row{grid-template-columns:minmax(0,30%) minmax(0,1fr);}
   }
   /* Мобільна композиція */
   @container stage (max-width:560px){
@@ -108,7 +112,10 @@
     .legend{font-size:clamp(13px,3.5cqw,16px);gap:6px clamp(12px,4cqw,20px);}
     .legend .sw{width:clamp(11px,3cqw,14px);height:clamp(11px,3cqw,14px);}
     .rows,.rows.few{gap:clamp(14px,4.4cqw,24px);padding:0;}
-    .row,.rows.few .row{grid-template-columns:1fr;row-gap:clamp(6px,1.8cqw,10px);padding:4px 6px;margin:0 -6px;}
+    .pills{display:grid;grid-template-columns:1fr 1fr;width:100%;border-radius:20px;}
+    .pill{text-align:center;}
+    .ghead{font-size:clamp(15px,4cqw,17px);margin-top:10px;}
+    .row,.rows.few .row,.rows.mid .row{grid-template-columns:1fr;row-gap:clamp(6px,1.8cqw,10px);padding:4px 6px;margin:0 -6px;}
     .label{font-size:clamp(14px,3.8cqw,17px);line-height:1.3;}
     .rows.few .label{font-size:clamp(15px,4cqw,18px);}
     .bar,.rows.few .bar{height:clamp(14px,4cqw,20px);border-radius:3px;}
@@ -129,8 +136,8 @@
     <header class="head">
       <div class="tcol">
         <h1 class="title" data-nb>Наскільки моніторинги покривають <span style="white-space:nowrap">ризик-індикатори</span></h1>
-        <p class="subtitle" data-nb>Моніторинги покрили <b id="covered"></b> з <b id="total"></b> спрацювань у 2025&nbsp;році&nbsp;—&nbsp;<b id="share"></b></p>
-        <p class="hint" data-nb>На графіку — короткі назви індикаторів. Повна назва — у підказці: наведіть курсор або торкніться рядка</p>
+        <p class="subtitle" id="subtitle"></p>
+        <p class="hint" id="hint"></p>
       </div>
       <div class="logos">
         <img class="logo-matra" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAf8AAADWCAYAAADfJYv0AAAxsElEQVR42u3de1CUZ74n8O/TGCvE1kaqgD44MJxpTu3Ztc/Qp6JbtbRkCERQq1ZQqxZ2syvkj9HRVIyxwZnK8YIxm50RVEwqenS3SvBUzsIfKqS2QmAi4mHgbJVODUw1f5wdO0NgwoBWgUCT9qjdz/7R/b68b9+5qEi+n6pcgL68999z/T3C/EZVvtcnb4KWvASDeH30q7ouHgkiIloIAw8BERERgz8REREx+BMRERGDPxERETH4ExEREYM/ERERMfgTERERgz8REREx+BMRERGDPxERETH4ExEREYM/ERERMfgTERERgz8RERGDPxERETH4ExEREYM/ERERMfgTERERgz8REREx+BMRERGDPxERETH4ExEREYM/ERERMfgTERERgz8REREx+BMRERGDPxERETH4ExERMfgTERERgz8REREx+BMRERGDPxERETH4ExEREYM/ERERMfgTERERgz8REREx+BMRERGDPxERETH4ExEREYM/ERERMfgTEREx+BMRERGDPxERETH4ExEREYM/ERERMfgTERERgz8REREx+BMRERGDPxERETH4ExEREYM/ERERMfgTERERgz8REREx+BMRERGDPxEREYM/ERERMfgTERERgz8REREx+BMRERGDPxERETH4ExEREYM/ERERMfgTERERgz8REREx+BMRERGDPxERETH4ExEREYM/ERERgz8REREx+BMRERGDPxERETH4ExEREYM/ERERMfgTERERgz8REREx+BMRERGDPxERETH4ExEREYM/ERERMfgTERERgz8REREx+BMRETH4ExEREYM/ERERMfgTERERgz8REREx+BMRERGDPxERETH4ExEREYM/ERERMfgTERERgz8REREx+BMRERGDPxERETH4ExEREYM/ERERgz8REREx+BMRERGDPxERETH4ExEREYM/ERERMfgTERERgz8REREx+BMRERGDPxERETH4R2DPsaC8eCPPLhER0fcl+OfaLNhqX8+zS0REtNyDvz3Hgo8PlwESGBodx8eHy7DNbuVZJiIiWs41f5MxERBApjkZJmMi1hgTeZaJiIg0Viynnenpd6Gn36XW9msbO3iGiYiIlnPwV2r+W+zrsWZVIkzGREy6PTzLREREyzn4N5yo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" alt="Kingdom of the Netherlands (MATRA)">
@@ -143,6 +150,8 @@
       <div class="pills" id="pills" role="group" aria-label="Вигляд графіка">
         <button type="button" class="pill on" data-view="ind" aria-pressed="true">За індикаторами</button>
         <button type="button" class="pill" data-view="prio" aria-pressed="false">За пріоритетом</button>
+        <button type="button" class="pill" data-view="rank" aria-pressed="false">За рангом</button>
+        <button type="button" class="pill" data-view="value" aria-pressed="false">За вартістю</button>
       </div>
       <div class="legend" id="legend"></div>
     </div>
@@ -179,9 +188,9 @@
       name:'Безпідставне застосування замовником під час спрощеної закупівлі механізму усунення невідповідностей «24 години».' },
     { code:'sas24-3-15',   p:'low',  t:296,  m:140,  short:'Відхилено щонайменше двох учасників за наявності скарги в АМКУ',
       name:'Замовник відхилив мінімум 2 учасників за наявності скарги в Органі оскарження.' },
-    { code:'sas24-3-2',    p:'high', t:2177, m:1053, short:'Відхилено щонайменше двох учасників, крім переможця (товари, послуги)',
+    { code:'sas24-3-2',    p:'high', t:2177, m:1053, short:'Відхилено всіх учасників, крім переможця (товари, послуги)',
       name:'Замовник відхилив тендерні пропозиції / пропозиції всіх учасників під час закупівлі товарів або послуг, крім переможця.' },
-    { code:'sas24-3-2-1',  p:'high', t:226,  m:105,  short:'Відхилено щонайменше двох учасників, крім переможця (роботи)',
+    { code:'sas24-3-2-1',  p:'high', t:226,  m:105,  short:'Відхилено всіх учасників, крім переможця (роботи)',
       name:'Замовник відхилив тендерні пропозиції / пропозиції всіх учасників під час закупівлі робіт, крім переможця.' },
     { code:'sas24-3-4',    p:'high', t:161,  m:51,   short:'Збільшення ціни та зміна строку дії договору',
       name:'Замовник змінив істотні умови договору про закупівлю в частині збільшення ціни та зміни строку дії договору.' },
@@ -221,9 +230,53 @@
   function nb(s){ return s.replace(/(^|[\s(«])([уУвВзЗіІйЙаАоО]|та|до|на|не|по|за|що|від|без|під|про|при|або|для)\s/g, function(m,a,b){ return a + b + ' '; }); }
   function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/«24 /g,'«24\u00a0'); }
 
-  document.getElementById('covered').textContent = num(M);
-  document.getElementById('total').textContent = num(T);
-  document.getElementById('share').textContent = pct(AVG);
+  // Ранг ризику: кількість закупівель (t) і закупівель з моніторингом (m); v — ОВ закупівель, vm — ОВ закупівель з моніторингом, грн
+  var RANK = [
+    { r:1, t:84,   m:31,   v:675908886.70,   vm:243875546.75,   ri:'4+ ризик-індикаторів' },
+    { r:2, t:225,  m:108,  v:4094086641.76,  vm:1770601484.96,  ri:'3 ризик-індикатори' },
+    { r:3, t:1255, m:592,  v:14494351035.73, vm:3660984151.72,  ri:'2 ризик-індикатори' },
+    { r:4, t:4259, m:1747, v:62107906821.62, vm:25486016141.18, ri:'1 ризик-індикатор',
+      note:'З них 12,6 млрд грн — одна закупівля харчування для ЗСУ' }
+  ]; // разом 5 823 і 2 478; ОВ 81 372 253 385,81 і 31 161 477 324,61 грн
+  // Діапазони очікуваної вартості (ОВ): t — унікальні закупівлі, m — закупівлі з моніторингом за підставою РІ,
+  // v — ОВ закупівель, vm — ОВ закупівель з моніторингом, грн
+  var VALUE = [
+    { g:'gs', name:'0,4–1,5 млн грн',        range:'від 400 тис. до 1,5 млн грн (не включно)', t:2213, m:1115, v:1716725016.81,  vm:861827906.78 },
+    { g:'gs', name:'1,5–5 млн грн',          range:'від 1,5 млн до 5 млн грн включно',         t:1126, m:521,  v:3031161062.66,  vm:1405727350.46 },
+    { g:'gs', name:'5–15 млн грн',           range:'понад 5 млн до 15 млн грн включно',        t:479,  m:211,  v:4138445737.80,  vm:1809424062.44 },
+    { g:'gs', name:'понад 15 млн грн',       range:'понад 15 млн грн',                         t:324,  m:129,  v:52858500264.07, vm:20673112664.48,
+      note:'З них 12,6 млрд грн — одна закупівля харчування для ЗСУ' },
+    { g:'w',  name:'1,5–5 млн грн',          range:'від 1,5 млн до 5 млн грн включно',         t:1104, m:300,  v:3133226753.61,  vm:825152092.69 },
+    { g:'w',  name:'5–15 млн грн',           range:'понад 5 млн до 15 млн грн включно',        t:391,  m:139,  v:3191845856.02,  vm:1212056410.81 },
+    { g:'w',  name:'понад 15 млн грн',       range:'понад 15 млн грн',                         t:186,  m:63,   v:13302348694.84, vm:4374176836.95 }
+  ]; // разом 5 823 закупівлі, 2 478 з моніторингом; ОВ з моніторингом 31 161 477 324,61 грн
+  var GROUP = { gs:'Товари та послуги', w:'Роботи' };
+  var TT = 0, TM = 0;
+  RANK.forEach(function(d){ TT += d.t; TM += d.m; });   // 5 823 і 2 478
+
+  function tend(n){ return plural(n,'закупівлі','закупівель','закупівель'); }
+  function tendNom(n){ return plural(n,'закупівля','закупівлі','закупівель'); }
+  var mlnf = new Intl.NumberFormat('uk-UA',{minimumFractionDigits:2,maximumFractionDigits:2});
+  function money(v){
+    if(v >= 1e9) return mlnf.format(v/1e9).replace(/\s/g,'\u00a0') + '\u00a0млрд грн';
+    if(v >= 1e6) return mlnf.format(v/1e6).replace(/\s/g,'\u00a0') + '\u00a0млн грн';
+    return mlnf.format(v/1e3).replace(/\s/g,'\u00a0') + '\u00a0тис. грн';
+  }
+
+  var HINT_TIP = 'Деталі — у підказці: наведіть курсор або торкніться рядка';
+  var VIEWS = {
+    ind:   { unit:'trig', cls:'',    hint:'На графіку — короткі назви індикаторів. Повна назва — у підказці: наведіть курсор або торкніться рядка' },
+    prio:  { unit:'trig', cls:'few', hint:HINT_TIP },
+    rank:  { unit:'tend', cls:'few', hint:HINT_TIP },
+    value: { unit:'tend', cls:'mid', hint:'Діапазони очікуваної вартості закупівлі. ' + HINT_TIP }
+  };
+  function setHeader(){
+    var u = VIEWS[view].unit;
+    document.getElementById('subtitle').innerHTML = u === 'trig'
+      ? nb('Моніторинги покрили ') + '<b>' + num(M) + '</b> з <b>' + num(T) + '</b> спрацювань у 2025\u00a0році\u00a0—\u00a0<b>' + pct(M/T) + '</b>'
+      : nb('Моніторинги покрили ') + '<b>' + num(TM) + '</b> з <b>' + num(TT) + '</b> ' + nb('закупівель зі спрацюваннями ризик-індикаторів у 2025') + '\u00a0році\u00a0—\u00a0<b>' + pct(TM/TT) + '</b>';
+    document.getElementById('hint').textContent = nb(VIEWS[view].hint);
+  }
   document.querySelectorAll('[data-nb]').forEach(function(el){
     el.childNodes.forEach(function(n){ if(n.nodeType===3) n.nodeValue = nb(n.nodeValue); });
   });
@@ -242,7 +295,11 @@
     }
     document.getElementById('srtable').innerHTML =
       tbl('Покриття спрацювань ризик-індикаторів моніторингами, за індикаторами', 'Індикатор', DATA, function(d){ return d.code + ' — ' + esc(d.name); }) +
-      tbl('Покриття за пріоритетом індикатора', 'Пріоритет', PRIO, function(d){ return PRIORITY[d.p].name; });
+      tbl('Покриття за пріоритетом індикатора', 'Пріоритет', PRIO, function(d){ return PRIORITY[d.p].name; }) +
+      '<table><caption>Покриття закупівель моніторингами за рангом ризику</caption><thead><tr><th>Ранг</th><th>Закупівель</th><th>З моніторингом</th><th>Частка</th><th>Очікувана вартість</th><th>Очікувана вартість закупівель з моніторингом</th><th>Частка за вартістю</th></tr></thead><tbody>' +
+        RANK.map(function(d){ return '<tr><th>Ранг ' + d.r + ' — ' + d.ri + '</th><td>' + num(d.t) + '</td><td>' + num(d.m) + '</td><td>' + pct(share(d)) + '</td><td>' + money(d.v) + '</td><td>' + money(d.vm) + '</td><td>' + pct(d.vm/d.v) + '</td></tr>'; }).join('') + '</tbody></table>' +
+      '<table><caption>Покриття закупівель моніторингами за діапазонами очікуваної вартості</caption><thead><tr><th>Діапазон</th><th>Закупівель</th><th>З моніторингом</th><th>Частка</th><th>Очікувана вартість</th><th>Очікувана вартість закупівель з моніторингом</th><th>Частка за вартістю</th></tr></thead><tbody>' +
+        VALUE.map(function(d){ return '<tr><th>' + GROUP[d.g] + ', ' + d.range + '</th><td>' + num(d.t) + '</td><td>' + num(d.m) + '</td><td>' + pct(share(d)) + '</td><td>' + money(d.v) + '</td><td>' + money(d.vm) + '</td><td>' + pct(d.vm/d.v) + '</td></tr>'; }).join('') + '</tbody></table>';
   })();
 
   var rowsEl = document.getElementById('rows');
@@ -254,23 +311,40 @@
   document.addEventListener('click', function(){ if(active !== null) hide(); });
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && active !== null) hide(); });
 
+  function rowLabel(d){
+    if(view === 'ind') return '<span class="code">' + d.code + '</span>' + esc(nb(d.short));
+    if(view === 'prio') return PRIORITY[d.p].name + ' пріоритет';
+    if(view === 'rank') return 'Ранг ' + d.r;
+    return d.name;
+  }
+  function rowAria(d){
+    var base = view === 'ind' ? d.code + ': ' + d.short : view === 'prio' ? PRIORITY[d.p].name + ' пріоритет'
+      : view === 'rank' ? 'Ранг ' + d.r : GROUP[d.g] + ', ' + d.name;
+    var unit = VIEWS[view].unit === 'trig' ? trig(d.t) : tend(d.t);
+    return base + '. Покрито моніторингами ' + num(d.m) + ' з ' + num(d.t) + ' ' + unit + ', ' + pct(share(d));
+  }
   function render(){
     hide();
+    setHeader();
     rowsEl.innerHTML = ''; items = [];
-    var list = view === 'ind' ? DATA : PRIO;
-    rowsEl.classList.toggle('few', view !== 'ind');
+    var list = view === 'ind' ? DATA : view === 'prio' ? PRIO : view === 'rank' ? RANK : VALUE;
+    rowsEl.classList.toggle('few', VIEWS[view].cls === 'few');
+    rowsEl.classList.toggle('mid', VIEWS[view].cls === 'mid');
+    var lastG = null;
     list.forEach(function(d, i){
-      var lab = view === 'ind'
-        ? '<span class="code">' + d.code + '</span>' + esc(nb(d.short))
-        : PRIORITY[d.p].name + ' пріоритет';
+      if(view === 'value' && d.g !== lastG){
+        lastG = d.g;
+        var h = document.createElement('div'); h.className = 'ghead'; h.setAttribute('role','presentation');
+        h.textContent = GROUP[d.g];
+        rowsEl.appendChild(h);
+      }
       var row = document.createElement('div'); row.className = 'row';
       row.setAttribute('role', 'listitem'); row.tabIndex = 0;
-      row.setAttribute('aria-label', (view === 'ind' ? d.code + ': ' + d.short : PRIORITY[d.p].name + ' пріоритет') +
-        '. Покрито моніторингами ' + num(d.m) + ' з ' + num(d.t) + ' ' + trig(d.t) + ', ' + pct(share(d)));
+      row.setAttribute('aria-label', rowAria(d));
       row.innerHTML =
-        '<div class="label">' + lab + '</div>' +
+        '<div class="label">' + rowLabel(d) + '</div>' +
         '<div class="barline"><div class="bar"><div class="core" style="width:' + (share(d)*100) + '%"></div></div>' +
-        '<span class="val"><b>' + pct(share(d)) + '</b> з ' + num(d.t) + '</span></div>';
+        '<span class="val"><b>' + pct(share(d)) + '</b></span></div>';
       rowsEl.appendChild(row);
       items.push({ row:row, bar:row.querySelector('.bar'), d:d });
       row.addEventListener('mouseenter', function(){ if(touchMode) return; show(i); });
@@ -289,7 +363,7 @@
     requestAnimationFrame(function(){ requestAnimationFrame(sizeBars); });
   }
 
-  // Довжина бару — кількість спрацювань (спільна шкала в межах вигляду); залишаємо місце для найширшого підпису
+  // Довжина бару — кількість спрацювань або закупівель (спільна шкала в межах вигляду); залишаємо місце для найширшого підпису
   function sizeBars(){
     if(!items.length) return;
     var max = Math.max.apply(null, items.map(function(it){ return it.d.t; }));
@@ -317,16 +391,29 @@
     rowsEl.classList.add('has-active');
     items.forEach(function(it, j){ it.row.classList.toggle('active', j === i); });
     var d = items[i].d, P = PRIORITY[d.p], html;
-    var cov = '<div class="tn">' + num(d.m) + ' з ' + num(d.t) + ' ' + trig(d.t) + ' у 2025 році — ' + pct(share(d)) + '</div>' +
+    var unit = VIEWS[view].unit === 'trig' ? trig(d.t) + ' у 2025 році' : tend(d.t);
+    var cov = '<div class="tn">' + num(d.m) + ' з ' + num(d.t) + ' ' + unit + ' — ' + pct(share(d)) + '</div>' +
       '<div>покрито моніторингами</div>';
     if(view === 'ind'){
       html = '<div class="tl">Повна назва індикатора ' + d.code + ':</div>' +
         '<div class="tf">' + esc(nb(d.name)) + '</div>' + cov +
         '<div class="tx">Пріоритет індикатора: <b>' + P.name.toLowerCase() + '</b></div>';
-    } else {
+    } else if(view === 'prio'){
       html = '<div class="tl">Пріоритет індикатора</div>' +
         '<div class="tf" style="font-weight:500">' + P.name + '</div>' + cov +
         '<div class="tx">Індикаторів із цим пріоритетом: <b>' + d.n + '</b></div>';
+    } else if(view === 'rank'){
+      html = '<div class="tl">Ранг ризику</div>' +
+        '<div class="tf" style="font-weight:500">Ранг ' + d.r + ' — ' + d.ri + '</div>' + cov +
+        '<div class="tx">' + nb('Очікувана вартість закупівель з моніторингом:') + ' <b>' + money(d.vm) + '</b> з ' + money(d.v) + ' — ' + pct(d.vm/d.v) + '</div>' +
+        (d.note ? '<div class="tx" style="color:rgba(255,255,255,.8)">' + nb(d.note) + '</div>' : '') +
+        '<div class="tx" style="margin-top:0.6em;padding-top:0.6em;border-top:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.8)">' +
+        nb('Ранг ураховує всі ризик-індикатори, що спрацювали в закупівлі, зокрема наприкінці 2024 і на початку 2026 року') + '</div>';
+    } else {
+      html = '<div class="tl">' + GROUP[d.g] + ', очікувана вартість</div>' +
+        '<div class="tf" style="font-weight:500">' + nb(d.range) + '</div>' + cov +
+        '<div class="tx">' + nb('Очікувана вартість закупівель з моніторингом:') + ' <b>' + money(d.vm) + '</b> з ' + money(d.v) + ' — ' + pct(d.vm/d.v) + '</div>' +
+        (d.note ? '<div class="tx" style="color:rgba(255,255,255,.8)">' + nb(d.note) + '</div>' : '');
     }
     tip.innerHTML = html + '<span class="arrow"></span>';
     tip.classList.add('visible');
